@@ -16,7 +16,7 @@ public class Permutation {
         int i = 0;
 
         for (String s : randomizedQueue) {
-            if (i == k - 1) break;
+            if (i == k) break;
             System.out.println(s);
             i++;
         }

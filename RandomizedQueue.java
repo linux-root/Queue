@@ -18,6 +18,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
        Node(Item item) {
            this.data = item;
        }
+
+       Node(final Node source) {
+           if (source == null) return;
+           this.data = source.data;
+           Node sourcePointer = source.next;
+           Node thisPointer = this;
+           while (sourcePointer != null) {
+               thisPointer.next = new Node(sourcePointer.data);
+               sourcePointer = sourcePointer.next;
+               thisPointer = thisPointer.next;
+           }
+       }
    }
 
     // construct an empty randomized queue
@@ -25,17 +37,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
        this.size = 0;
     }
 
-    private Node  cloneFirst() {
+    private Node cloneFirst() {
        if (this.first == null) return null;
-       final Node cloneFirst  = new Node(this.first.data);
-       Node currentOnDestination = cloneFirst;
-       Node currentOnSource = this.first.next;
-       while (currentOnSource != null) {
-           currentOnDestination.next = new Node(currentOnSource.data);
-           currentOnSource = currentOnSource.next;
-           currentOnDestination = currentOnDestination.next;
-       }
-       return cloneFirst;
+       return new Node(this.first);
     }
 
     // is the randomized queue empty?
